@@ -8,7 +8,7 @@ pipeline {
                                 dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp-platform"){
                                     sh '''
                                             export  GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
-                                            inspec exec . -t gcp:// --reporter cli junit:inspec_results.xml
+                                            inspec exec . --attrs attributes.yml -t gcp:// --reporter cli junit:inspec_results.xml
                                         '''
                             }
                             }                         
