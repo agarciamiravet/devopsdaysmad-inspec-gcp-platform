@@ -1,0 +1,3 @@
+gcp_project_id: 'DevOpsDays-Madrid'
+sa_key_older_than_seconds: 7776000
+kms_rotation_period_seconds: 31536000

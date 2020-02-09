@@ -1,0 +1,16 @@
+name: devopsdaysmad-gcp-platform
+title: GCP InSpec Profile
+maintainer: Alejandro Garcia
+copyright: Alejandro Garcia - 2020
+copyright_email: agarciamiravet@gmail.com
+license: Apache-2.0
+summary: An InSpec Compliance Profile For GCP
+version: 0.1.0
+inspec_version: '>= 2.3.5'
+depends:
+- name: inspec-gcp
+  url: https://github.com/inspec/inspec-gcp/archive/master.tar.gz
+- name: inspec-cis-benchmark
+  git: https://github.com/GoogleCloudPlatform/inspec-gcp-cis-benchmark.git
+supports:
+- platform: gcp
