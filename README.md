@@ -1,0 +1,1 @@
+# devopsdaysmad-inspec-gcp-platform-
