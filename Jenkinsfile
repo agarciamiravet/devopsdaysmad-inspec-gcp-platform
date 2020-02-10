@@ -6,14 +6,29 @@ pipeline {
 
                                 withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                                 dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp-platform"){
-                                    sh '''
-                                            export  GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
-                                            inspec exec . --attrs attributes.yml -t gcp:// --reporter cli junit:inspec_results.xml
-                                        '''
+
+                                      catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                                       sh '''
+                                          export  GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
+                                          inspec exec . --attrs attributes.yml -t gcp:// --reporter cli junit:inspec_results.xml json:output.json
+                                       '''
+                                    }
                             }
                             }                         
                             }
-                 }             
+                 }
+                 
+                    stage('Upload tests to grafana') {
+                        steps {
+                             dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp-platform"){                                   
+                                   sh '''
+                                        ls
+                                        curl -F 'file=@output.json' -F 'platform=gcp-platform' http://localhost:5001/api/InspecResults/Upload
+                                   '''                                   
+                           }                      
+                        }
+                    }
+                          
                 }
          post {
         always {
