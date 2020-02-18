@@ -18,7 +18,7 @@ pipeline {
                             }
                  }
                  
-                    stage('Upload tests to grafana') {
+                    stage('Upload Tests to Grafana') {
                         steps {
                              dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp-platform"){                                   
                                    sh '''
